@@ -110,26 +110,192 @@ button {
   animation: particleDrift var(--duration, 9s) ease-in-out infinite alternate;
 }
 
-.opening-visual {
+.opening-stage {
   position: absolute;
   left: 50%;
   top: 48%;
-  width: min(760px, 76vw);
+  width: min(820px, 80vw);
+  height: min(520px, 58vw);
   opacity: 0;
-  transform: translate(-50%, -42%) scale(0.96);
-  transition: opacity 1000ms ease, transform 1200ms ease;
+  transform: translate(-50%, -42%);
+  transition: opacity 900ms ease, transform 1100ms ease;
 }
 
-.opening-visual.is-visible {
-  opacity: 0.92;
-  transform: translate(-50%, -50%) scale(1);
+.opening-stage.is-globe-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%);
 }
 
-.opening-visual img {
+.opening-globe,
+.hero-globe {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  width: min(280px, 29vw);
+  transform: translate(-50%, -50%);
+}
+
+.opening-globe svg,
+.hero-globe svg {
   display: block;
   width: 100%;
+  overflow: visible;
+}
+
+.opening-globe circle,
+.opening-globe ellipse,
+.opening-globe path:not(.globe-stand),
+.hero-globe circle,
+.hero-globe ellipse,
+.hero-globe path:not(.globe-stand) {
+  fill: rgba(255, 255, 255, 0.26);
+  stroke: rgba(99, 91, 78, 0.28);
+  stroke-width: 1.1;
+}
+
+.opening-globe .globe-stand,
+.hero-globe .globe-stand {
+  fill: none;
+  stroke: rgba(87, 79, 67, 0.58);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.opening-items,
+.hero-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 84%;
+  height: 44%;
+  border: 1px dashed rgba(23, 35, 68, 0.16);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-8deg);
+}
+
+.opening-stage.is-items-visible .opening-items,
+body.ready .hero-orbit {
+  opacity: 1;
+}
+
+.opening-items {
+  animation: orbitItems 24s linear infinite;
+}
+
+.hero-orbit {
+  transform: translate(-50%, -50%) rotate(-8deg);
+  animation: none;
+}
+
+.orbit-b {
+  width: 72%;
+  height: 58%;
+  transform: translate(-50%, -50%) rotate(13deg);
+}
+
+[data-item] {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 38px;
+  border: 0;
+  background: transparent;
+  filter: drop-shadow(0 10px 18px rgba(23, 35, 68, 0.08));
+}
+
+.hero-orbit [data-item] {
+  animation: itemFloat 5.4s ease-in-out infinite alternate;
+}
+
+.hero-orbit [data-item]:nth-child(2) { animation-delay: -1.4s; }
+.hero-orbit [data-item]:nth-child(3) { animation-delay: -2.6s; }
+.hero-orbit [data-item]:nth-child(4) { animation-delay: -3.2s; }
+
+[data-item]::before,
+[data-item]::after {
+  content: "";
+  display: block;
+}
+
+[data-item="book"] { left: 4%; top: 26%; }
+[data-item="coffee"] { left: 24%; top: -5%; }
+[data-item="pc"] { left: 16%; bottom: 2%; }
+[data-item="camera"] { right: 8%; top: 18%; }
+[data-item="ticket"] { right: 20%; top: 6%; }
+[data-item="leaf"] { left: 6%; top: 4%; }
+[data-item="headphones"] { right: 12%; bottom: 2%; }
+
+[data-item="book"]::before {
+  width: 25px;
+  height: 18px;
+  border: 2px solid var(--primary);
+  border-top: 0;
+  transform: skewY(-7deg);
+}
+
+[data-item="coffee"]::before {
+  width: 20px;
+  height: 17px;
+  border: 2px solid var(--secondary);
+  border-radius: 0 0 8px 8px;
+}
+
+[data-item="pc"]::before {
+  width: 27px;
+  height: 17px;
+  border: 2px solid rgba(23, 35, 68, 0.48);
+  border-radius: 2px;
+}
+
+[data-item="camera"]::before {
+  width: 28px;
+  height: 18px;
+  border: 2px solid rgba(23, 35, 68, 0.6);
+  border-radius: 3px;
+  background: radial-gradient(circle, rgba(23, 35, 68, 0.6) 0 4px, transparent 5px);
+}
+
+[data-item="ticket"]::before {
+  width: 30px;
+  height: 14px;
+  border: 2px solid var(--gold);
+  transform: rotate(-8deg);
+}
+
+[data-item="leaf"]::before {
+  width: 26px;
+  height: 22px;
+  border-left: 2px solid var(--primary);
+  border-radius: 50%;
+  transform: rotate(36deg);
+}
+
+[data-item="headphones"]::before {
+  width: 24px;
+  height: 20px;
+  border: 3px solid rgba(23, 35, 68, 0.55);
+  border-bottom: 0;
+  border-radius: 18px 18px 0 0;
+}
+
+.opening-girl {
+  position: absolute;
+  z-index: 3;
+  left: -18%;
+  bottom: 0;
+  width: min(250px, 25vw);
   height: auto;
-  mask-image: radial-gradient(ellipse 58% 48% at 50% 50%, #000 68%, rgba(0, 0, 0, 0.78) 82%, transparent 100%);
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transform: translateX(var(--girl-x, 0)) translateY(var(--girl-y, 0)) rotateY(var(--girl-rotate, 0deg));
+  transition: transform 1100ms cubic-bezier(.45, 0, .2, 1);
+}
+
+.opening-stage.is-girl-walking .opening-girl {
+  --girl-x: min(430px, 44vw);
+  animation: walkingBob 720ms ease-in-out infinite;
 }
 
 .loading-progress {
@@ -330,23 +496,40 @@ body.ready .site-header {
   background: var(--ink);
 }
 
-.hero-art {
+.hero-stage {
   position: absolute;
   z-index: 2;
   left: 50%;
   top: 48%;
   width: min(930px, 73vw);
-  margin: 0;
+  height: min(550px, 43vw);
   transform: translate(-48%, -50%);
 }
 
-.hero-art img {
-  display: block;
-  width: 100%;
+.hero-stage::before {
+  position: absolute;
+  inset: 4% 12%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.64), transparent 68%);
+  content: "";
+}
+
+.hero-globe {
+  top: 48%;
+  width: min(335px, 32vw);
+}
+
+.hero-girl {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  bottom: -8px;
+  width: min(228px, 22vw);
   height: auto;
-  filter: saturate(0.96) contrast(0.98);
-  mask-image: radial-gradient(ellipse 58% 48% at 50% 50%, #000 68%, rgba(0, 0, 0, 0.82) 82%, transparent 100%);
-  animation: visualBreathe 5.8s ease-in-out infinite;
+  mix-blend-mode: multiply;
+  transform: translateX(-36%);
+  animation: heroGirlBreathe 4.8s ease-in-out infinite;
 }
 
 .hero-role {
@@ -734,36 +917,22 @@ h3 {
   background: linear-gradient(90deg, var(--primary), var(--secondary), var(--gold));
 }
 
-.walk-person {
+.journey-girl {
   position: absolute;
   left: calc(var(--walk-progress, 0) * 1%);
-  top: 21px;
-  width: 28px;
-  height: 48px;
-  transform: translateX(-50%);
+  top: -44px;
+  width: 92px;
+  height: auto;
+  mix-blend-mode: multiply;
+  mask-image: radial-gradient(ellipse 38% 48% at 50% 48%, #000 58%, transparent 100%);
+  transform: translateX(-50%) rotate(var(--pickup-tilt, 0deg));
+  transition: left 80ms linear, transform 260ms ease;
+  animation: walkingBob 720ms ease-in-out infinite;
 }
 
-.walk-person::before {
-  position: absolute;
-  left: 6px;
-  top: 0;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #1d1d1d;
-  content: "";
-}
-
-.walk-person::after {
-  position: absolute;
-  left: 4px;
-  top: 17px;
-  width: 20px;
-  height: 30px;
-  border-radius: 10px 10px 4px 4px;
-  background: #1d1d1d;
-  content: "";
-  animation: tinyWalk 700ms steps(2) infinite;
+.walk-line.is-picking .journey-girl {
+  --pickup-tilt: 7deg;
+  animation-play-state: paused;
 }
 
 .work-list {
@@ -777,8 +946,8 @@ h3 {
   min-height: 276px;
   padding: clamp(24px, 3vw, 34px);
   text-align: left;
-  opacity: 0;
-  transform: translateY(22px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 680ms ease, transform 680ms ease, background 180ms ease;
 }
 
@@ -789,6 +958,16 @@ h3 {
 
 .work-item:hover {
   background: rgba(255, 255, 255, 0.72);
+}
+
+.work-item.is-near {
+  background: rgba(255, 255, 255, 0.82);
+  transform: translateY(-4px);
+}
+
+.work-item.is-collected {
+  background: rgba(63, 107, 91, 0.08);
+  box-shadow: inset 3px 0 0 rgba(63, 107, 91, 0.36);
 }
 
 .work-item h3 {
@@ -1049,18 +1228,39 @@ h3 {
   }
 }
 
-@keyframes visualBreathe {
+@keyframes heroGirlBreathe {
   0%, 100% {
-    transform: translateY(0);
+    transform: translateX(-36%) translateY(0);
   }
   50% {
-    transform: translateY(-8px);
+    transform: translateX(-36%) translateY(-8px);
   }
 }
 
-@keyframes tinyWalk {
+@keyframes walkingBob {
+  0%, 100% {
+    translate: 0 0;
+  }
   50% {
-    transform: skewX(-5deg) translateY(1px);
+    translate: 0 -6px;
+  }
+}
+
+@keyframes orbitItems {
+  from {
+    transform: translate(-50%, -50%) rotate(-8deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(352deg);
+  }
+}
+
+@keyframes itemFloat {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 8px -8px;
   }
 }
 
@@ -1123,13 +1323,28 @@ h3 {
     display: none;
   }
 
-  .hero-art {
+  .hero-stage {
     position: relative;
     left: auto;
     top: auto;
     align-self: center;
     width: min(100%, 720px);
+    height: min(420px, 80vw);
     transform: none;
+  }
+
+  .hero-globe {
+    width: min(230px, 52vw);
+  }
+
+  .hero-girl {
+    width: min(170px, 38vw);
+    left: 52%;
+  }
+
+  .hero-orbit,
+  .opening-items {
+    width: 96%;
   }
 
   .hero-signature {
@@ -1174,7 +1389,7 @@ h3 {
     display: none;
   }
 
-  .hero-art {
+  .hero-stage {
     margin-top: 26px;
   }
 

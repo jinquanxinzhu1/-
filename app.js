@@ -1,4 +1,4 @@
-const REQUIRED_IMAGE = "./assets/hero-illustration.png";
+const REQUIRED_IMAGES = ["./assets/hero-illustration.png", "./assets/girl-walk.png"];
 const NAV_ITEMS = [...document.querySelectorAll("[data-nav]")];
 const TAGS = ["All", "Design", "Technology", "SNS", "Competition", "Event", "Hobby"];
 
@@ -95,7 +95,7 @@ const state = {
 const elements = {
   body: document.body,
   opening: document.querySelector(".opening"),
-  openingVisual: document.querySelector(".opening-visual"),
+  openingStage: document.querySelector(".opening-stage"),
   progress: document.querySelector(".loading-progress"),
   particleField: document.querySelector(".particle-field"),
   header: document.querySelector(".site-header"),
@@ -138,8 +138,10 @@ function createParticles() {
 }
 
 async function runOpening() {
-  const imageReady = preloadImage(REQUIRED_IMAGE);
-  window.setTimeout(() => elements.openingVisual.classList.add("is-visible"), 2000);
+  const imageReady = Promise.all(REQUIRED_IMAGES.map(preloadImage));
+  window.setTimeout(() => elements.openingStage.classList.add("is-globe-visible"), 2000);
+  window.setTimeout(() => elements.openingStage.classList.add("is-girl-walking"), 2500);
+  window.setTimeout(() => elements.openingStage.classList.add("is-items-visible"), 4200);
 
   for (let value = 0; value <= 99; value += 1) {
     elements.progress.textContent = `${value}%`;
@@ -148,7 +150,8 @@ async function runOpening() {
 
   await imageReady;
   elements.progress.textContent = "100%";
-  await wait(520);
+  elements.openingStage.classList.add("is-items-visible");
+  await wait(620);
   elements.opening.classList.add("is-hidden");
   elements.body.classList.remove("is-loading");
   elements.body.classList.add("ready");
@@ -361,8 +364,22 @@ function updateScrollEffects() {
     const rect = elements.walkLine.getBoundingClientRect();
     const raw = (window.innerHeight * 0.72 - rect.top) / (window.innerHeight * 0.52);
     const walk = Math.max(0, Math.min(1, raw));
-    elements.walkLine.style.setProperty("--walk-progress", String(Math.round(walk * 100)));
+    const walkPercent = Math.round(walk * 100);
+    elements.walkLine.style.setProperty("--walk-progress", String(walkPercent));
+    updateWorkCollection(walkPercent);
   }
+}
+
+function updateWorkCollection(walkPercent) {
+  const cards = [...elements.workList.querySelectorAll(".work-item")];
+  if (!cards.length) return;
+
+  const activeIndex = Math.min(cards.length - 1, Math.floor((walkPercent / 100) * cards.length));
+  cards.forEach((card, index) => {
+    card.classList.toggle("is-near", index === activeIndex && walkPercent > 4 && walkPercent < 98);
+    card.classList.toggle("is-collected", index < activeIndex);
+  });
+  elements.walkLine.classList.toggle("is-picking", walkPercent > 8 && walkPercent < 96 && walkPercent % 18 < 5);
 }
 
 function prefersReducedMotion() {

@@ -17,8 +17,31 @@
   <body class="is-loading">
     <div class="opening" aria-label="Opening animation">
       <div class="particle-field" aria-hidden="true"></div>
-      <div class="opening-visual" aria-hidden="true">
-        <img src="./assets/hero-illustration.png" alt="" />
+      <div class="opening-stage" aria-hidden="true">
+        <div class="opening-globe">
+          <svg viewBox="0 0 240 280">
+            <circle cx="120" cy="112" r="78" />
+            <ellipse cx="120" cy="112" rx="78" ry="23" />
+            <ellipse cx="120" cy="112" rx="48" ry="78" />
+            <ellipse cx="120" cy="112" rx="20" ry="78" />
+            <path d="M45 96c45 15 105 15 150 0" />
+            <path d="M45 128c48-13 104-13 150 0" />
+            <path class="globe-stand" d="M180 43c38 36 42 105 8 145" />
+            <path class="globe-stand" d="M92 204h74" />
+            <path class="globe-stand" d="M120 190v34" />
+            <path class="globe-stand" d="M88 226h70" />
+          </svg>
+        </div>
+        <div class="opening-items">
+          <span data-item="book"></span>
+          <span data-item="coffee"></span>
+          <span data-item="pc"></span>
+          <span data-item="camera"></span>
+          <span data-item="ticket"></span>
+          <span data-item="leaf"></span>
+          <span data-item="headphones"></span>
+        </div>
+        <img class="opening-girl" src="./assets/girl-walk.png" alt="" />
       </div>
       <p class="loading-progress" aria-live="polite">0%</p>
     </div>
@@ -57,9 +80,34 @@
           <p>まだ知らないを、<br />おもしろいへ。</p>
           <span aria-hidden="true"></span>
         </div>
-        <figure class="hero-art">
-          <img src="./assets/hero-illustration.png" alt="地球儀の前を歩く女の子と、周囲を回る本、コーヒー、PC、カメラなどの小物" />
-        </figure>
+        <div class="hero-stage" aria-hidden="true">
+          <div class="hero-globe">
+            <svg viewBox="0 0 240 280">
+              <circle cx="120" cy="112" r="78" />
+              <ellipse cx="120" cy="112" rx="78" ry="23" />
+              <ellipse cx="120" cy="112" rx="48" ry="78" />
+              <ellipse cx="120" cy="112" rx="20" ry="78" />
+              <path d="M45 96c45 15 105 15 150 0" />
+              <path d="M45 128c48-13 104-13 150 0" />
+              <path class="globe-stand" d="M180 43c38 36 42 105 8 145" />
+              <path class="globe-stand" d="M92 204h74" />
+              <path class="globe-stand" d="M120 190v34" />
+              <path class="globe-stand" d="M88 226h70" />
+            </svg>
+          </div>
+          <div class="hero-orbit orbit-a">
+            <span data-item="book"></span>
+            <span data-item="coffee"></span>
+            <span data-item="pc"></span>
+            <span data-item="camera"></span>
+          </div>
+          <div class="hero-orbit orbit-b">
+            <span data-item="ticket"></span>
+            <span data-item="leaf"></span>
+            <span data-item="headphones"></span>
+          </div>
+          <img class="hero-girl" src="./assets/girl-walk.png" alt="" />
+        </div>
         <p class="hero-role">Designer / Planner</p>
         <div class="hero-signature">
           <p>Kokone Imaizumi</p>
@@ -150,7 +198,7 @@
 
         <div class="walk-line" aria-hidden="true">
           <span class="walk-progress"></span>
-          <span class="walk-person"></span>
+          <img class="journey-girl" src="./assets/girl-walk.png" alt="" />
         </div>
 
         <div class="work-list" id="work-list" aria-live="polite"></div>
