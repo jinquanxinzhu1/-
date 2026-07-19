@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f6f2" />
+    <title>Kokone Imaizumi Portfolio</title>
+    <link id="site-styles" rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">メインコンテンツへ移動</a>
+    <div id="app"></div>
+    <script>window.__PAGES_FALLBACK__ = true;</script>
+    <script>
+      (() => {
+        const siteRoot = window.location.pathname.includes("/-/") ? "/-/" : "/";
+        document.querySelector("#site-styles").href = siteRoot + "styles.css";
+        window.__PAGES_FALLBACK__ = true;
+        ["data.js", "app.js"].forEach((file) => {
+          const script = document.createElement("script");
+          script.src = siteRoot + file;
+          document.body.appendChild(script);
+        });
+      })();
+    </script>
+  </body>
+</html>
