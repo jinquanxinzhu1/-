@@ -36,6 +36,18 @@ jobs:
           mkdir -p out/assets
           cp index.html 404.html styles.css app.js data.js robots.txt sitemap.xml out/
           cp assets/girl-walk.png assets/hero-illustration.png out/assets/
+          for path in about news works contact; do
+            mkdir -p "out/$path"
+            cp index.html "out/$path/index.html"
+          done
+          for slug in uiux-question marugoto-festival hanabi shiwashiwa-newspaper secom-interview ivs-toryumon; do
+            mkdir -p "out/works/$slug"
+            cp index.html "out/works/$slug/index.html"
+          done
+          for slug in ivs-2026; do
+            mkdir -p "out/news/$slug"
+            cp index.html "out/news/$slug/index.html"
+          done
           touch out/.nojekyll
 
       - name: Upload Pages artifact

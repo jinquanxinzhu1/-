@@ -8,6 +8,10 @@
     <meta property="og:title" content="Kokone Imaizumi Portfolio" />
     <meta property="og:description" content="まだ知らないを、おもしろいへ。" />
     <meta property="og:type" content="website" />
+    <script>
+      const siteRoot = window.location.pathname.includes("/-/") ? "/-/" : "/";
+      document.write(`<base href="${siteRoot}" />`);
+    </script>
     <title>Kokone Imaizumi Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
